@@ -1,0 +1,36 @@
+name: Delete Workflow Runs
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: Number of days
+        required: true
+        default: 15
+      minimun-runs:
+        description: Number of Runs to keep
+        required: true
+        default: 5
+      workflow-name:
+        description: Workflow to clean
+        required: true
+        type: choice
+        options:
+          - All
+          - Provisioning
+          - Deployment
+          - Delete Workflow Runs
+
+jobs:
+  Delete-Worflow-Runs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deleting Workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: ${{ github.event.inputs.days }}
+          keep_minimum_runs: ${{ github.event.inputs.minimum-runs }}
+          delete_workflow_pattern: ${{ github.event.inputs.workflow-name }}

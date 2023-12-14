@@ -1,0 +1,79 @@
+name: License Key Controller Deployment
+
+on:
+  workflow_dispatch:
+    branches: [master]
+    inputs:
+      deploy-to-production:
+        type: boolean
+        description: Deploy to Production?
+        required: false
+        default: false
+
+  push:
+    branches: [master]
+
+jobs:
+  Deploy-to-Tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dummy Step
+        run: echo 'Deploying LKC'
+
+  #     - name: Checkout Code
+  #       uses: actions/checkout@v3
+
+  #     - name: Install AWS CLI
+  #       shell: bash
+  #       run: python -m pip install awscliv2
+
+  #     - name: Configure AWS Credentials
+  #       uses: aws-actions/configure-aws-credentials@v3
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: us-east-1
+
+  #     - name: Install Lambda Global Tools
+  #       shell: pwsh
+  #       run: dotnet tool install -g Amazon.Lambda.Tools
+
+  #     - name: Deploy to AWS
+  #       shell: pwsh
+  #       run: dotnet lambda deploy-serverless LicenseKeyController-Application-Tests `
+  #         --project-location ./src/LicenseKeyController `
+  #         --s3-bucket license-key-controller-code-deploy `
+  #         --template license-key-controller-serverless.yaml `
+  #         --template-parameters SelectedEnvironment=Tests
+
+  # Deploy-to-Production:
+  #   if: ${{ github.event.inputs.deploy-to-production == 'true' }}
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout Code
+  #       uses: actions/checkout@v3
+
+  #     - name: Install AWS CLI
+  #       shell: bash
+  #       run: python -m pip install awscliv2
+
+  #     - name: Configure AWS Credentials
+  #       uses: aws-actions/configure-aws-credentials@v3
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: us-east-1
+
+  #     - name: Install Lambda Global Tools
+  #       shell: pwsh
+  #       run: dotnet tool install -g Amazon.Lambda.Tools
+
+  #     - name: Deploy to AWS
+  #       shell: pwsh
+  #       run: dotnet lambda deploy-serverless LicenseKeyController-Application `
+  #         --project-location ./src/LicenseKeyController `
+  #         --s3-bucket license-key-controller-code-deploy `
+  #         --template license-key-controller-serverless.yaml `
+  #         --template-parameters SelectedEnvironment=Production

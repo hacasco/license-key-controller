@@ -1,0 +1,61 @@
+name: License Key Controller Provisioning
+
+on:
+  workflow_dispatch:
+    branches: [master]
+
+    inputs:
+      environment:
+        description: Environment to Deploy
+        required: true
+        type: choice
+        options:
+          - "Tests"
+          - "Stage"
+          - "Production"
+
+      deployment-bucket:
+        type: string
+        description: Deployment Bucket
+        required: true
+        default: license-key-controller-code-deploy
+
+jobs:
+  Provisioning:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dummy Step
+        run: echo 'Provisioning LKC'
+
+      # - name: Checkout Code
+      #   uses: actions/checkout@v2
+
+      # - name: Install AWS CLI
+      #   shell: bash
+      #   run: python -m pip install awscliv2
+
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v3
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
+
+      # - name: Synchronize templates
+      #   shell: pwsh
+      #   run: aws s3 sync `
+      #     ./.cicd/provisioning `
+      #     s3://${{ github.event.inputs.deployment-bucket }} `
+      #     --exclude *.* `
+      #     --include *.yaml `
+      #     --delete
+
+      # - name: Create Provisioning Stack
+      #   shell: pwsh
+      #   run: aws cloudformation deploy `
+      #     --stack-name LicenseKeyController-Provisioning-${{ github.event.inputs.environment }} `
+      #     --template-file ./.cicd/provisioning/root.yaml `
+      #     --parameter-overrides `
+      #     SelectedEnvironment=${{ github.event.inputs.environment }} `
+      #     DeploymentBucket=${{ github.event.inputs.deployment-bucket }}
